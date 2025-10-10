@@ -1,0 +1,29 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+// import Isotope from "../../node_modules/isotope-layout/js/isotope.js";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      //
+    </style>
+    <script>
+      //
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="grid">
+         howdy
+      </div>
+      <Footer />
+    </main>
+  </body>
+</html>

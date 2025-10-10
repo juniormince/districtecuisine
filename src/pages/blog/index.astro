@@ -1,0 +1,275 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { Image } from "astro:assets";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <script>
+      function fillDots() {
+        const listItems = document.querySelectorAll(".list li a");
+        listItems.forEach((item) => {
+          const dateDiv = item.querySelector(".date");
+          const dotsDiv = item.querySelector(".dots-fill");
+          const recipeTitleDiv = item.querySelector(".recipe-title");
+          if (!dateDiv || !dotsDiv || !recipeTitleDiv) return;
+
+          dotsDiv.style.width = "auto";
+
+          const availableSpace =
+            item.offsetWidth - dateDiv.offsetWidth - recipeTitleDiv.offsetWidth;
+
+          const dotWidth = 8;
+          const numberOfDots = Math.max(
+            0,
+            Math.floor(availableSpace / dotWidth),
+          );
+          dotsDiv.textContent = ".".repeat(numberOfDots);
+        });
+      }
+      window.addEventListener("load", fillDots);
+      window.addEventListener("resize", fillDots);
+    </script>
+    <style>
+      .toc-row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+      .dots-fill {
+        flex: 1;
+        text-align: center;
+        font-family: monospace;
+        color: #aaa;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0 6px;
+      }
+      .list,
+      .recipe-log {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      /* Basic styles for the list and list items */
+      .list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Style each list item */
+      .list li {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 10px; /* Space between list items */
+      }
+
+      /* The 'date' element (left side) */
+      .date {
+        flex-shrink: 0; /* Prevent shrinking */
+        white-space: nowrap; /* Prevent wrapping */
+      }
+
+      /* The 'recipe title' element (right side) */
+      .recipe-title {
+        flex-shrink: 0; /* Prevent shrinking */
+        white-space: nowrap; /* Prevent wrapping */
+      }
+
+      .dots {
+        flex-grow: 1;
+        font-family: monospace;
+        text-align: center;
+        white-space: nowrap;
+        margin: 0; /* Remove side margin */
+        font-size: 16px;
+      }
+      .list {
+        padding: 0;
+      }
+      .list li a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+      }
+      .date,
+      .recipe-title {
+        white-space: nowrap;
+      }
+      main {
+        width: 960px;
+      }
+      div.recipe-log {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 960px;
+        height: 75vh;
+        border: 2px solid #000;
+        padding: 15vh 0;
+        overflow-y: scroll;
+      }
+      ul {
+        /* display: grid; */
+        /* grid-template-columns: 1fr 1fr 1fr; */
+        width: 100%;
+        gap: 2rem;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+        gap: 2rem;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      /* ul li {
+				width: calc(50% - 1rem);
+			} */
+      ul li * {
+        text-decoration: none;
+        transition: 0.2s ease;
+      }
+      /* ul li:first-child {
+				width: 100%;
+				margin-bottom: 1rem;
+				text-align: center;
+			} */
+      /* ul li:first-child img {
+				width: 100%; */
+      /* } */
+      /* ul li:first-child .title {
+				font-size: 2.369rem;
+			} */
+      /* ul li img {
+        margin-bottom: 0.5rem;
+        border-radius: 12px;
+      } */
+      /* ul li a {
+        display: block;
+      } */
+      .title {
+        margin: 0;
+        color: rgb(var(--black));
+        line-height: 1;
+      }
+      .date {
+        margin: 0;
+        color: rgb(var(--gray));
+      }
+      ul li a:hover h4,
+      ul li a:hover .date {
+        color: rgb(var(--accent));
+      }
+      ul a:hover img {
+        box-shadow: var(--box-shadow);
+      }
+      @media (max-width: 720px) {
+        ul {
+          gap: 0.5em;
+        }
+        ul li {
+          width: 100%;
+          /* text-align: center; */
+        }
+        /* ul li:first-child {
+					margin-bottom: 0;
+				} */
+        /* ul li:first-child .title {
+					font-size: 1.563em;
+				} */
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <div class="recipe-log">
+          <ul class="list">
+            {
+              posts.map((post) => (
+                <li>
+                  <a href={`/blog/${post.id}/`}>
+                    <div class="date">
+                      [ <FormattedDate date={post.data.pubDate} />
+                    </div>
+                    <div class="dots-fill" />
+                    <div class="recipe-title">{post.data.title} ]</div>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <ul class="list">
+            {
+              posts.map((post) => (
+                <li>
+                  <div class="date">
+                    [ <FormattedDate date={post.data.pubDate} />
+                  </div>
+                  <div class="dots-fill" />
+                  <div class="recipe-title">{post.data.title} ]</div>
+                </li>
+              ))
+            }
+          </ul>
+          <ul class="list">
+            {
+              posts.map((post) => (
+                <li>
+                  <div class="date">
+                    [ <FormattedDate date={post.data.pubDate} />
+                  </div>
+                  <div class="dots-fill" />
+                  <div class="recipe-title">{post.data.title} ]</div>
+                </li>
+              ))
+            }
+          </ul>
+          <ul class="list">
+            {
+              posts.map((post) => (
+                <li>
+                  <div class="date">
+                    [ <FormattedDate date={post.data.pubDate} />
+                  </div>
+                  <div class="dots-fill" />
+                  <div class="recipe-title">{post.data.title} ]</div>
+                </li>
+              ))
+            }
+          </ul>
+          <!-- <ul class="list">
+            <li>
+              <div class="date">Date 1</div>
+              <div class="recipe-title">Recipe Title 1</div>
+            </li>
+            <li>
+              <div class="date">Date 2</div>
+              <div class="recipe-title">Recipe Title 2</div>
+            </li>
+            <li>
+              <div class="date">Date 3</div>
+              <div class="recipe-title">Recipe Title 3</div>
+            </li>
+          </ul> -->
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
