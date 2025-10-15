@@ -27,8 +27,74 @@ const { title, description, pubDate, updatedDate, heroImage } =
       main {
         width: calc(100% - 2em);
         max-width: 100%;
-        margin: 0;
+        margin: auto;
+        padding: 6em 1em;
       }
+
+      /* move global resets to sep file */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      .recipe-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        align-items: start;
+        gap: 2rem;
+        /* max-width: 900px; */
+        margin: 0 auto;
+        padding: 0 75px;
+      }
+      /* //// */
+      .postMiniPro {
+        position: sticky;
+        top: 75px;
+        align-self: start;
+        /* height: fit-content; */
+        height: 35%;
+      }
+      .mProFrame {
+        height: 100%;
+        width: 100%;
+        border: 10px solid var(--bg-1);
+        background: #333 url(https://via.placeholder.com/220x400) no-repeat
+          center;
+        background-size: cover;
+        margin: 0 auto;
+      }
+      /* //// */
+      .postArea {
+        /* background: var(--bg-1); */
+        border-radius: 10px;
+        display: grid;
+        /* grid-template-columns: 1fr 3fr; */
+      }
+      .postcolor {
+        text-align: justify;
+        /* padding: 2rem; */
+        font: 400 16px/1.5rem var(--font-sans);
+        letter-spacing: 0.02rem;
+
+        b {
+          color: var(--accent-1);
+        }
+        i {
+          color: var(--accent-2);
+        }
+      }
+
+      /* ////// */
       .hero-image {
         width: 100%;
       }
@@ -51,13 +117,13 @@ const { title, description, pubDate, updatedDate, heroImage } =
         /* text-align: center; */
         line-height: 1;
       }
-      .title h1 {
+      /* .title h1 {
         margin: 0 0 0.5em 0;
       }
       .date {
         margin-bottom: 0.5em;
         color: rgb(var(--gray));
-      }
+      } */
       .last-updated-on {
         font-style: italic;
       }
@@ -73,7 +139,7 @@ const { title, description, pubDate, updatedDate, heroImage } =
 				</div> -->
         <div class="prose">
           <div class="title">
-            {
+            <!-- {
               pubDate && (
                 <div class="date">
                   <FormattedDate date={pubDate} />
@@ -84,11 +150,104 @@ const { title, description, pubDate, updatedDate, heroImage } =
                   )}
                 </div>
               )
-            }
+            } -->
             <h1>{title}</h1>
             <hr />
           </div>
           <slot />
+        </div>
+        <div class="recipe-wrapper">
+          <!-- ingredients -->
+          <section class="postMiniPro">
+            <div class="borderTop"></div>
+            <div class="mProFrame">ingredients</div>
+            <div class="borderBot"></div>
+          </section>
+
+          <!-- recipe card instructions -->
+          <section class="postArea">
+            <div class="borderTop"></div>
+            <div><h3>RECIPE TIME:</h3></div>
+            <div id="pid_260">
+              <div class="postcolor">
+                <ul>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                  <li>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </li>
+                  <li>
+                    Vitae ultricies leo integer malesuada nunc vel risus commodo
+                    viverra.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="borderBot"></div>
+          </section>
         </div>
       </article>
     </main>
