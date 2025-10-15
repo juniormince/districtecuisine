@@ -42,6 +42,23 @@ const posts = (await getCollection("blog")).sort(
       window.addEventListener("resize", fillDots);
     </script>
     <style>
+      /************************************************
+        Custom Mini Profile 
+      *************************************************/
+      .postMiniPro {
+        position: sticky;
+        top: 45px;
+      }
+      .mProFrame {
+        height: 400px;
+        width: 240px;
+        border: 10px solid var(--bg-1);
+        background: #333 url(https://via.placeholder.com/220x400) no-repeat
+          center;
+        background-size: cover;
+        margin: 0 auto;
+      }
+      /* //// */
       .toc-row {
         display: flex;
         align-items: center;
@@ -60,6 +77,8 @@ const posts = (await getCollection("blog")).sort(
       .recipe-log {
         width: 100%;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column-reverse;
       }
       /* Basic styles for the list and list items */
       .list {
@@ -121,6 +140,8 @@ const posts = (await getCollection("blog")).sort(
         border: 2px solid #000;
         padding: 15vh 0;
         overflow-y: scroll;
+        display: flex;
+        flex-direction: column-reverse;
       }
       ul {
         /* display: grid; */
@@ -214,7 +235,7 @@ const posts = (await getCollection("blog")).sort(
               ))
             }
           </ul>
-          <ul class="list">
+          <!-- <ul class="list">
             {
               posts.map((post) => (
                 <li>
@@ -252,7 +273,7 @@ const posts = (await getCollection("blog")).sort(
                 </li>
               ))
             }
-          </ul>
+          </ul> -->
           <!-- <ul class="list">
             <li>
               <div class="date">Date 1</div>
